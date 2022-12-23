@@ -1,4 +1,6 @@
-﻿namespace Notification.Slack
+﻿using Newtonsoft.Json;
+
+namespace Notification.Slack
 {
     public class Notifier<T> : AbstractNotifier<T> where T : SlackMessage
     {
@@ -7,6 +9,7 @@
             var messageId = Guid.NewGuid();
             Console.WriteLine("Sending message to {0}", message.ChannelName);
             await Task.Delay(1000);
+            await LogNotifications(messageId, JsonConvert.SerializeObject(message), typeof(SlackMessage).Name);
             return messageId;
         }
     }
