@@ -2,6 +2,8 @@
 {
     public interface INotifier<T>
     {
-        Task<Guid> SendNotification(T message);
+        Task<NotifierResponse> SendNotificationAsync(T message);
+
+        Task<List<NotifierResponse>> SendNotificationsAsync(List<T> messages);
     }
 }

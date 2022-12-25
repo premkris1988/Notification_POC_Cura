@@ -4,28 +4,15 @@ namespace Notification
 {
     public abstract class AbstractNotifier<T> : INotifier<T>
     {
-        internal string sgKey { get; set; } = string.Empty;
-        internal string fromEmail { get; set; } = string.Empty;
-        internal string fromAlias { get; set; } = string.Empty;
-
-        public AbstractNotifier()
-        {
-            var builder = new ConfigurationBuilder();
-            builder.AddJsonFile(Path.Combine(Directory.GetCurrentDirectory(), "EmailConfig.json"));
-
-            var root = builder.Build().GetSection("Configurations");
-            sgKey = root["Key"] ?? string.Empty;
-            fromEmail = root["FromAddress"] ?? string.Empty;
-            fromAlias = root["FromAlias"] ?? string.Empty;
-
-
-        }
-        public abstract Task<Guid> SendNotification(T message);
+        public abstract Task<NotifierResponse> SendNotificationAsync(T message);
 
         public async Task LogNotifications(Guid guid, string message, string type)
         {
             // log the notification to DB
+            Console.WriteLine("{0} - {1} - {2}", guid, message, type);
             await Task.Delay(1000);
         }
+
+        public abstract Task<List<NotifierResponse>> SendNotificationsAsync(List<T> messages);
     }
 }

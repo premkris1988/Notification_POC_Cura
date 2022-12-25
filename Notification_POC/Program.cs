@@ -41,7 +41,7 @@ namespace Notification_POC
 
             var slackNotifier = provider.GetRequiredService<INotifier<SlackMessage>>();
 
-            var messageId = await slackNotifier.SendNotification(new SlackMessage
+            var messageId = await slackNotifier.SendNotificationAsync(new SlackMessage
             {
                 Body = "Welcome",
                 Title = "Hi",
@@ -57,7 +57,7 @@ namespace Notification_POC
 
             var emailNotifier = provider.GetRequiredService<INotifier<EmailMessage>>();
 
-            var messageId = await emailNotifier.SendNotification(new EmailMessage
+            var messageId = await emailNotifier.SendNotificationAsync(new EmailMessage
             {
                 Body = "Welcome",
                 Title = "Hi",
